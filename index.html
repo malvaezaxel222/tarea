@@ -7,6 +7,7 @@
 
   <!-- Tipografías -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 
   <style>
     * { box-sizing: border-box; }
@@ -15,18 +16,21 @@
       padding: 0;
       font-family: 'Quicksand', sans-serif;
       scroll-behavior: smooth;
-      background: linear-gradient(to right, #8B0000, #660000);
+      background: linear-gradient(135deg, #8B0000, #FFD700);
       color: #fff;
     }
-    h1, h2 { font-family: 'Playfair Display', serif; }
+    h1, h2, h3 {
+      font-family: 'Playfair Display', serif;
+    }
 
     header {
       background: #fff;
       color: #8B0000;
-      padding: 20px;
+      padding: 30px;
       text-align: center;
       font-size: 2.5em;
       font-weight: bold;
+      box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
     }
     header img {
       max-height: 80px;
@@ -37,18 +41,19 @@
     nav {
       background: #660000;
       text-align: center;
-      padding: 10px 0;
+      padding: 20px 0;
       position: sticky;
       top: 0;
       z-index: 10;
+      transition: all 0.3s ease;
     }
     nav a {
       color: #fff;
       margin: 0 15px;
       text-decoration: none;
       font-weight: bold;
-      font-size: 1.1em;
-      cursor: pointer;
+      font-size: 1.2em;
+      transition: color 0.3s ease;
     }
     nav a:hover {
       color: #FFD700;
@@ -60,7 +65,6 @@
       display: none;
       justify-content: center;
       align-items: center;
-      flex-direction: column;
       text-align: center;
       opacity: 0;
       animation: fadeIn 1s ease forwards;
@@ -76,35 +80,35 @@
     .hero {
       position: relative;
       color: #fffacd;
-    }
-    .hero video {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      z-index: -1;
+      background: #660000;
+      padding: 60px 0;
     }
     .hero h1 {
       font-size: 3.5em;
       color: #FFD700;
+    }
+    .hero h2 {
+      font-size: 1.5em;
+      margin-top: 15px;
+      color: #fff;
     }
 
     .btn {
       background: #FFD700;
       color: #330000;
       text-decoration: none;
-      padding: 10px 20px;
-      border-radius: 8px;
+      padding: 15px 30px;
+      border-radius: 50px;
       font-weight: bold;
       transition: all 0.3s ease-in-out;
-      margin-top: 15px;
+      margin-top: 20px;
       cursor: pointer;
+      border: 2px solid #8B0000;
     }
     .btn:hover {
       background: #fff;
-      transform: scale(1.05);
+      transform: scale(1.1);
+      color: #8B0000;
     }
 
     .gallery {
@@ -117,11 +121,55 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
     }
-    .gallery img {
-      width: 250px;
-      border-radius: 12px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+    .producto-box img {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      border-radius: 15px;
+      transition: all 0.5s ease;
+    }
+    .producto-box:hover img {
+      transform: scale(1.1);
+    }
+
+    .like-btn {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: none;
+      border: none;
+      font-size: 2em;
+      color: #FFD700;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    .like-btn:hover {
+      transform: scale(1.2);
+    }
+
+    .formulario {
+      margin-top: 30px;
+    }
+    .formulario input, .formulario textarea {
+      padding: 15px;
+      width: 100%;
+      max-width: 450px;
+      margin-bottom: 15px;
+      border: none;
+      border-radius: 8px;
+    }
+    #mensajeEnviado {
+      color: #FFD700;
+      font-weight: bold;
+      margin-top: 20px;
+      display: none;
     }
 
     /* Nueva clase para el mensaje de "próximamente" */
@@ -137,7 +185,7 @@
       font-size: 1.5em;
       text-align: center;
       display: none;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.7);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
       animation: fadeInProximamente 1s ease-out forwards;
     }
 
@@ -152,73 +200,83 @@
       }
     }
 
-    /* Estilo del corazón (me gusta) */
-    .like-btn {
-      background: none;
-      border: none;
-      font-size: 2em;
-      color: #FFD700;
-      cursor: pointer;
-      transition: transform 0.3s ease;
+    /* Estilos para el carrusel */
+    .carousel {
+      width: 80%;
+      margin: 40px auto;
+      overflow: hidden;
     }
-    .like-btn:hover {
-      transform: scale(1.2);
+    .carousel-inner {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
     }
-    .like-count {
-      font-size: 1.2em;
-      margin-top: 5px;
-      color: #FFD700;
+    .carousel-item {
+      width: 100%;
+      flex-shrink: 0;
+    }
+    .carousel img {
+      width: 100%;
+      border-radius: 12px;
     }
 
-    .formulario {
-      margin-top: 30px;
+    /* WhatsApp Button */
+    .whatsapp-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #25D366;
+      border-radius: 50%;
+      padding: 15px;
+      font-size: 1.5em;
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      cursor: pointer;
+      transition: background 0.3s ease;
     }
-    .formulario input, .formulario textarea {
-      padding: 10px;
-      width: 100%;
-      max-width: 400px;
-      margin-bottom: 15px;
-      border: none;
-      border-radius: 8px;
+    .whatsapp-btn:hover {
+      background: #128C7E;
     }
-    #mensajeEnviado {
-      color: #FFD700;
-      font-weight: bold;
-      margin-top: 20px;
+
+    /* Newsletter Popup */
+    .newsletter-popup {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.7);
       display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
     }
-    .especificaciones {
-      padding: 40px 20px;
-      background: #1b1b1b;
-      color: #FFD700;
-      display: none;
-      text-align: center;
-    }
-    .comentarios {
-      margin-top: 40px;
-      background: #1c1c1c;
+    .newsletter-content {
+      background: #fff;
+      color: #000;
       padding: 30px;
       border-radius: 12px;
-      width: 90%;
-      max-width: 700px;
+      text-align: center;
     }
-    .comentarios h3 {
-      margin-bottom: 20px;
-    }
-    .comentarios textarea {
+    .newsletter-input {
+      padding: 15px;
       width: 100%;
-      height: 100px;
-      margin-bottom: 10px;
-      padding: 10px;
+      max-width: 400px;
+      margin-bottom: 20px;
       border-radius: 8px;
-      border: none;
+      border: 2px solid #8B0000;
     }
-    .comentario-item {
-      background: #333;
-      padding: 10px;
-      border-radius: 8px;
-      margin-top: 10px;
-      text-align: left;
+    .newsletter-btn {
+      padding: 10px 30px;
+      background: #FFD700;
+      color: #330000;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .newsletter-btn:hover {
+      background: #fff;
+      color: #8B0000;
     }
   </style>
 </head>
@@ -234,13 +292,14 @@
     <a onclick="mostrarSeccion('contacto')">Contacto</a>
   </nav>
 
+  <!-- Sección Hero -->
   <section class="hero active" id="inicio">
-    <video autoplay muted loop><source src="video.mp4" type="video/mp4"></video>
     <h1>ChocoFeliz</h1>
     <h2>El chocolate que conquista paladares millonarios.</h2>
     <a class="btn" onclick="mostrarSeccion('productos')">Descubre nuestros productos</a>
   </section>
 
+  <!-- Productos -->
   <section id="productos">
     <h2>Nuestros Chocolates Estrella</h2>
     <div class="gallery">
@@ -270,36 +329,18 @@
     <a class="btn" onclick="mostrarSeccion('inicio')">Volver al inicio</a>
   </section>
 
-  <section class="especificaciones" id="especificacionesFeliz">
-    <h3>Chocolate Feliz</h3>
-    <p>Medidas: 15cm x 15cm</p>
-    <p>Precio: $15.00 MXN</p>
-    <p>Relleno de dulce de leche, decorado con chispas de colores.</p>
-    <button class="btn" onclick="ocultarEspecificaciones()">Cerrar</button>
-  </section>
+  <!-- WhatsApp Button -->
+  <div class="whatsapp-btn" onclick="window.location.href='https://wa.me/525551234567'">
+    <i class="fab fa-whatsapp"></i>
+  </div>
 
-  <section class="especificaciones" id="especificacionesCacao">
-    <h3>Explosión Cacao</h3>
-    <p>Medidas: 10cm diámetro</p>
-    <p>Precio: $22.00 MXN</p>
-    <p>Esfera de chocolate oscuro rellena de avellana y cereza.</p>
-    <button class="btn" onclick="ocultarEspecificaciones()">Cerrar</button>
-  </section>
-
-  <section id="contacto">
-    <h2>Contacto</h2>
-    <p>Escríbenos para pedidos personalizados:</p>
-    <div class="formulario">
-      <input type="text" id="nombre" placeholder="Tu nombre">
-      <input type="email" id="correo" placeholder="Tu correo">
-      <textarea id="mensaje" rows="4" placeholder="Tu mensaje"></textarea>
-      <button class="btn" onclick="enviarMensaje()">Enviar mensaje</button>
-      <p id="mensajeEnviado">Mensaje enviado. Te llegará en unos días.</p>
+  <!-- Newsletter Popup -->
+  <div class="newsletter-popup" id="newsletterPopup">
+    <div class="newsletter-content">
+      <h2>¡Suscríbete a nuestro boletín!</h2>
+      <input type="email" class="newsletter-input" id="newsletterEmail" placeholder="Tu correo electrónico" />
+      <button class="newsletter-btn" onclick="suscribirNewsletter()">Suscribirse</button>
     </div>
-  </section>
-
-  <div class="proximamente" id="mensajeProximamente">
-    ¡Este producto estará disponible pronto! Gracias por tu interés.
   </div>
 
   <script>
@@ -328,58 +369,21 @@
       likeCount.innerText = `${++count} Me gusta`;
     }
 
-    function enviarMensaje() {
-      const nombre = document.getElementById("nombre").value;
-      const correo = document.getElementById("correo").value;
-      const mensaje = document.getElementById("mensaje").value;
-      const mailtoLink = `mailto:malvaezaxel324@gmail.com?subject=Mensaje de ${nombre}&body=Correo: ${correo}%0A%0AMensaje:%0A${mensaje}`;
-      window.location.href = mailtoLink;
-      document.getElementById("mensajeEnviado").style.display = "block";
-    }
-
-    function agregarComentario() {
-      const texto = document.getElementById("nuevaPropuesta").value;
-      if (texto.trim() !== "") {
-        const comentario = document.createElement("div");
-        comentario.className = "comentario-item";
-        comentario.innerText = texto;
-        document.getElementById("listaComentarios").appendChild(comentario);
-        const comentarios = JSON.parse(localStorage.getItem("comentarios") || "[]");
-        comentarios.push(texto);
-        localStorage.setItem("comentarios", JSON.stringify(comentarios));
-        document.getElementById("nuevaPropuesta").value = "";
+    function suscribirNewsletter() {
+      const email = document.getElementById("newsletterEmail").value;
+      if (email) {
+        alert(`Gracias por suscribirte, ${email}!`);
+        document.getElementById("newsletterPopup").style.display = "none";
       }
     }
 
-    function cargarComentarios() {
-      const comentarios = JSON.parse(localStorage.getItem("comentarios") || "[]");
-      comentarios.forEach(texto => {
-        const comentario = document.createElement("div");
-        comentario.className = "comentario-item";
-        comentario.innerText = texto;
-        document.getElementById("listaComentarios").appendChild(comentario);
-      });
-    }
-
-    function mostrarEspecificacion(id) {
-      document.querySelectorAll('.especificaciones').forEach(e => e.style.display = 'none');
-      const esp = document.getElementById(id);
-      esp.style.display = 'flex';
-      window.scrollTo(0, esp.offsetTop);
-    }
-
-    function ocultarEspecificaciones() {
-      document.querySelectorAll('.especificaciones').forEach(e => e.style.display = 'none');
-    }
-
-    document.addEventListener("DOMContentLoaded", () => {
-      mostrarSeccion('inicio');
-      cargarComentarios();
-    });
+    // Mostrar el pop-up de Newsletter al cargar la página
+    setTimeout(() => {
+      document.getElementById("newsletterPopup").style.display = "flex";
+    }, 5000);
   </script>
 </body>
 </html>
-
 
 
 
