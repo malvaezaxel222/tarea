@@ -84,6 +84,13 @@
       object-fit: cover;
       z-index: -1;
     }
+    .hero .overlay-text {
+      position: relative;
+      background: rgba(0,0,0,0.6);
+      padding: 20px;
+      border-radius: 12px;
+      animation: fadeIn 2s ease;
+    }
     .hero h1 {
       font-size: 4em;
       color: #FFD700;
@@ -123,7 +130,7 @@
       margin-top: 10px;
     }
 
-    .formulario, .comentarios, .especificaciones {
+    .formulario, .comentarios, .especificaciones, .testimonios, .mapa {
       background: #1c1c1c;
       padding: 30px;
       border-radius: 12px;
@@ -138,12 +145,16 @@
       border: none;
       border-radius: 8px;
     }
-    .comentario-item {
+    .comentario-item, .testimonio {
       background: #333;
       padding: 10px;
       border-radius: 8px;
       margin-top: 10px;
       text-align: left;
+    }
+    .rating {
+      color: gold;
+      margin-bottom: 5px;
     }
     #mensajeEnviado {
       color: #FFD700;
@@ -181,9 +192,11 @@
 
   <section class="hero active" id="inicio">
     <video autoplay muted loop><source src="video.mp4" type="video/mp4"></video>
-    <h1>ChocoFeliz</h1>
-    <h2>Chocolate artesanal con alma y elegancia.</h2>
-    <button class="btn" onclick="mostrarSeccion('productos')">Ver productos</button>
+    <div class="overlay-text">
+      <h1>ChocoFeliz</h1>
+      <h2>Chocolate artesanal con alma y elegancia.</h2>
+      <button class="btn" onclick="mostrarSeccion('productos')">Ver productos</button>
+    </div>
   </section>
 
   <section id="productos">
@@ -200,6 +213,18 @@
         <h3>Explosión Cacao</h3>
         <p>10cm diámetro - Relleno de avellana y cereza</p>
         <p>$22.00 MXN</p>
+      </div>
+    </div>
+
+    <div class="testimonios">
+      <h3>Testimonios de clientes</h3>
+      <div class="testimonio">
+        <div class="rating">★★★★★</div>
+        "¡El mejor chocolate que he probado! La textura es perfecta y el sabor inolvidable."
+      </div>
+      <div class="testimonio">
+        <div class="rating">★★★★☆</div>
+        "Delicioso y elegante. Ideal para regalar."
       </div>
     </div>
 
@@ -220,9 +245,18 @@
       <button class="btn" onclick="enviarMensaje()">Enviar mensaje</button>
       <p id="mensajeEnviado">Mensaje enviado. Te llegará en unos días.</p>
     </div>
+    <div class="mapa">
+      <h3>Encuéntranos</h3>
+      <iframe src="https://maps.google.com/maps?q=Ciudad%20de%20México&t=&z=13&ie=UTF8&iwloc=&output=embed" width="100%" height="300" frameborder="0" style="border:0" allowfullscreen></iframe>
+    </div>
+    <div style="margin-top: 20px;">
+      <p>Síguenos en redes:</p>
+      <a href="#" style="color: #FFD700; margin-right: 15px;"><i class="fab fa-facebook"></i> Facebook</a>
+      <a href="#" style="color: #FFD700; margin-right: 15px;"><i class="fab fa-instagram"></i> Instagram</a>
+    </div>
   </section>
 
-  <a class="whatsapp" href="https://wa.me/5215637141749" target="_blank">
+  <a class="whatsapp" href="https://wa.me/5215637141749?text=Hola%2C%20quiero%20más%20información%20sobre%20los%20chocolates%20ChocoFeliz." target="_blank">
     <i class="fab fa-whatsapp"></i>
   </a>
 
