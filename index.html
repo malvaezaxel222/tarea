@@ -158,6 +158,36 @@
       margin-top: 20px;
       display: none;
     }
+    .especificaciones {
+      margin-top: 40px;
+      color: #FFD700;
+      font-size: 1.1em;
+    }
+    .comentarios {
+      margin-top: 40px;
+      background: #1c1c1c;
+      padding: 30px;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 700px;
+    }
+    .comentarios h3 {
+      margin-bottom: 20px;
+    }
+    .comentarios textarea {
+      width: 100%;
+      height: 100px;
+      margin-bottom: 10px;
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+    }
+    .comentario-item {
+      background: #333;
+      padding: 10px;
+      border-radius: 8px;
+      margin-top: 10px;
+    }
   </style>
 </head>
 <body>
@@ -182,9 +212,31 @@
   <section id="productos">
     <h2>Nuestros Chocolates Estrella</h2>
     <div class="gallery">
-      <a href="#img1"><img src="chocolatefeliz.png" alt="Chocolate Feliz"></a>
-      <a href="#img2"><img src="explosioncacao.png" alt="Explosión Cacao"></a>
+      <a href="#especificacionesFeliz"><img src="chocolatefeliz.png" alt="Chocolate Feliz"></a>
+      <a href="#especificacionesCacao"><img src="explosioncacao.png" alt="Explosión Cacao"></a>
     </div>
+
+    <div class="especificaciones" id="especificacionesFeliz">
+      <h3>Chocolate Feliz</h3>
+      <p>Medidas: 15cm x 15cm</p>
+      <p>Precio: $15.00 MXN</p>
+      <p>Relleno de dulce de leche, decorado con chispas de colores.</p>
+    </div>
+
+    <div class="especificaciones" id="especificacionesCacao">
+      <h3>Explosión Cacao</h3>
+      <p>Medidas: 10cm diámetro</p>
+      <p>Precio: $22.00 MXN</p>
+      <p>Esfera de chocolate oscuro rellena de avellana y cereza.</p>
+    </div>
+
+    <div class="comentarios">
+      <h3>Deja tu propuesta</h3>
+      <textarea id="nuevaPropuesta" placeholder="Escribe tu idea para nuevos productos..."></textarea>
+      <button class="btn" onclick="agregarComentario()">Publicar</button>
+      <div id="listaComentarios"></div>
+    </div>
+
     <a class="btn" onclick="mostrarSeccion('inicio')">Volver al inicio</a>
   </section>
 
@@ -219,11 +271,20 @@
       const nombre = document.getElementById("nombre").value;
       const correo = document.getElementById("correo").value;
       const mensaje = document.getElementById("mensaje").value;
-
       const mailtoLink = `mailto:malvaezaxel324@gmail.com?subject=Mensaje de ${nombre}&body=Correo: ${correo}%0A%0AMensaje:%0A${mensaje}`;
       window.location.href = mailtoLink;
-
       document.getElementById("mensajeEnviado").style.display = "block";
+    }
+
+    function agregarComentario() {
+      const texto = document.getElementById("nuevaPropuesta").value;
+      if (texto.trim() !== "") {
+        const comentario = document.createElement("div");
+        comentario.className = "comentario-item";
+        comentario.innerText = texto;
+        document.getElementById("listaComentarios").appendChild(comentario);
+        document.getElementById("nuevaPropuesta").value = "";
+      }
     }
 
     document.addEventListener("DOMContentLoaded", () => {
@@ -232,4 +293,3 @@
   </script>
 </body>
 </html>
-
