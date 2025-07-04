@@ -95,11 +95,12 @@
       background: #FFD700;
       color: #330000;
       text-decoration: none;
-      padding: 15px 30px;
-      border-radius: 10px;
+      padding: 10px 20px;
+      border-radius: 8px;
       font-weight: bold;
       transition: all 0.3s ease-in-out;
-      margin-top: 25px;
+      margin-top: 15px;
+      cursor: pointer;
     }
     .btn:hover {
       background: #fff;
@@ -112,15 +113,15 @@
       justify-content: center;
       gap: 20px;
     }
+    .producto-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
     .gallery img {
       width: 250px;
       border-radius: 12px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.5);
-      cursor: pointer;
-      transition: transform 0.3s;
-    }
-    .gallery img:hover {
-      transform: scale(1.05);
     }
 
     .modal {
@@ -159,9 +160,11 @@
       display: none;
     }
     .especificaciones {
-      margin-top: 40px;
+      padding: 40px 20px;
+      background: #1b1b1b;
       color: #FFD700;
-      font-size: 1.1em;
+      display: none;
+      text-align: center;
     }
     .comentarios {
       margin-top: 40px;
@@ -187,6 +190,7 @@
       padding: 10px;
       border-radius: 8px;
       margin-top: 10px;
+      text-align: left;
     }
   </style>
 </head>
@@ -212,22 +216,14 @@
   <section id="productos">
     <h2>Nuestros Chocolates Estrella</h2>
     <div class="gallery">
-      <a href="#especificacionesFeliz"><img src="chocolatefeliz.png" alt="Chocolate Feliz"></a>
-      <a href="#especificacionesCacao"><img src="explosioncacao.png" alt="Explosión Cacao"></a>
-    </div>
-
-    <div class="especificaciones" id="especificacionesFeliz">
-      <h3>Chocolate Feliz</h3>
-      <p>Medidas: 15cm x 15cm</p>
-      <p>Precio: $15.00 MXN</p>
-      <p>Relleno de dulce de leche, decorado con chispas de colores.</p>
-    </div>
-
-    <div class="especificaciones" id="especificacionesCacao">
-      <h3>Explosión Cacao</h3>
-      <p>Medidas: 10cm diámetro</p>
-      <p>Precio: $22.00 MXN</p>
-      <p>Esfera de chocolate oscuro rellena de avellana y cereza.</p>
+      <div class="producto-box">
+        <img src="chocolatefeliz.png" alt="Chocolate Feliz">
+        <button class="btn" onclick="mostrarEspecificacion('especificacionesFeliz')">Especificaciones del producto</button>
+      </div>
+      <div class="producto-box">
+        <img src="explosioncacao.png" alt="Explosión Cacao">
+        <button class="btn" onclick="mostrarEspecificacion('especificacionesCacao')">Especificaciones del producto</button>
+      </div>
     </div>
 
     <div class="comentarios">
@@ -238,6 +234,22 @@
     </div>
 
     <a class="btn" onclick="mostrarSeccion('inicio')">Volver al inicio</a>
+  </section>
+
+  <section class="especificaciones" id="especificacionesFeliz">
+    <h3>Chocolate Feliz</h3>
+    <p>Medidas: 15cm x 15cm</p>
+    <p>Precio: $15.00 MXN</p>
+    <p>Relleno de dulce de leche, decorado con chispas de colores.</p>
+    <button class="btn" onclick="ocultarEspecificaciones()">Cerrar</button>
+  </section>
+
+  <section class="especificaciones" id="especificacionesCacao">
+    <h3>Explosión Cacao</h3>
+    <p>Medidas: 10cm diámetro</p>
+    <p>Precio: $22.00 MXN</p>
+    <p>Esfera de chocolate oscuro rellena de avellana y cereza.</p>
+    <button class="btn" onclick="ocultarEspecificaciones()">Cerrar</button>
   </section>
 
   <section id="contacto">
@@ -251,9 +263,6 @@
       <p id="mensajeEnviado">Mensaje enviado. Te llegará en unos días.</p>
     </div>
   </section>
-
-  <div id="img1" class="modal" onclick="location.href='#productos'"><img src="chocolatefeliz.png"></div>
-  <div id="img2" class="modal" onclick="location.href='#productos'"><img src="explosioncacao.png"></div>
 
   <script>
     function mostrarSeccion(id) {
@@ -283,12 +292,37 @@
         comentario.className = "comentario-item";
         comentario.innerText = texto;
         document.getElementById("listaComentarios").appendChild(comentario);
+        const comentarios = JSON.parse(localStorage.getItem("comentarios") || "[]");
+        comentarios.push(texto);
+        localStorage.setItem("comentarios", JSON.stringify(comentarios));
         document.getElementById("nuevaPropuesta").value = "";
       }
     }
 
+    function cargarComentarios() {
+      const comentarios = JSON.parse(localStorage.getItem("comentarios") || "[]");
+      comentarios.forEach(texto => {
+        const comentario = document.createElement("div");
+        comentario.className = "comentario-item";
+        comentario.innerText = texto;
+        document.getElementById("listaComentarios").appendChild(comentario);
+      });
+    }
+
+    function mostrarEspecificacion(id) {
+      document.querySelectorAll('.especificaciones').forEach(e => e.style.display = 'none');
+      const esp = document.getElementById(id);
+      esp.style.display = 'flex';
+      window.scrollTo(0, esp.offsetTop);
+    }
+
+    function ocultarEspecificaciones() {
+      document.querySelectorAll('.especificaciones').forEach(e => e.style.display = 'none');
+    }
+
     document.addEventListener("DOMContentLoaded", () => {
       mostrarSeccion('inicio');
+      cargarComentarios();
     });
   </script>
 </body>
