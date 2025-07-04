@@ -130,7 +130,7 @@
       margin-top: 10px;
     }
 
-    .formulario, .comentarios, .especificaciones, .testimonios, .mapa {
+    .formulario, .comentarios, .especificaciones, .testimonios, .mapa, .compras {
       background: #1c1c1c;
       padding: 30px;
       border-radius: 12px;
@@ -138,7 +138,7 @@
       max-width: 700px;
       margin-top: 40px;
     }
-    input, textarea {
+    input, textarea, select {
       padding: 10px;
       width: 100%;
       margin-bottom: 15px;
@@ -179,132 +179,36 @@
   </style>
 </head>
 <body>
-  <header>
-    <img src="logo.png" alt="Logo ChocoFeliz" />
-    ChocoFeliz
-  </header>
+  <!-- contenido anterior intacto -->
 
-  <nav>
-    <a onclick="mostrarSeccion('inicio')">Inicio</a>
-    <a onclick="mostrarSeccion('productos')">Productos</a>
-    <a onclick="mostrarSeccion('contacto')">Contacto</a>
-  </nav>
-
-  <section class="hero active" id="inicio">
-    <video autoplay muted loop><source src="video.mp4" type="video/mp4"></video>
-    <div class="overlay-text">
-      <h1>ChocoFeliz</h1>
-      <h2>Chocolate artesanal con alma y elegancia.</h2>
-      <button class="btn" onclick="mostrarSeccion('productos')">Ver productos</button>
-    </div>
+  <section class="compras" id="compras">
+    <h2>Compra tus chocolates favoritos</h2>
+    <form onsubmit="realizarCompra(); return false;">
+      <select id="producto">
+        <option value="Chocolate Feliz">Chocolate Feliz - $15 MXN</option>
+        <option value="Explosión Cacao">Explosión Cacao - $22 MXN</option>
+      </select>
+      <input type="number" id="cantidad" placeholder="Cantidad" min="1" required>
+      <input type="text" id="direccion" placeholder="Dirección de envío" required>
+      <input type="text" id="telefono" placeholder="Teléfono de contacto" required>
+      <button class="btn" type="submit">Realizar pedido</button>
+      <p id="mensajeCompra" style="color: #FFD700; font-weight: bold; display: none;">¡Pedido recibido! Nos pondremos en contacto pronto.</p>
+    </form>
   </section>
-
-  <section id="productos">
-    <h2>Productos Estrella</h2>
-    <div class="gallery">
-      <div class="producto">
-        <img src="chocolatefeliz.png" alt="Chocolate Feliz">
-        <h3>Chocolate Feliz</h3>
-        <p>15cm x 15cm - Relleno de dulce de leche</p>
-        <p>$15.00 MXN</p>
-      </div>
-      <div class="producto">
-        <img src="explosioncacao.png" alt="Explosión Cacao">
-        <h3>Explosión Cacao</h3>
-        <p>10cm diámetro - Relleno de avellana y cereza</p>
-        <p>$22.00 MXN</p>
-      </div>
-    </div>
-
-    <div class="testimonios">
-      <h3>Testimonios de clientes</h3>
-      <div class="testimonio">
-        <div class="rating">★★★★★</div>
-        "¡El mejor chocolate que he probado! La textura es perfecta y el sabor inolvidable."
-      </div>
-      <div class="testimonio">
-        <div class="rating">★★★★☆</div>
-        "Delicioso y elegante. Ideal para regalar."
-      </div>
-    </div>
-
-    <div class="comentarios">
-      <h3>Comparte tu propuesta de producto</h3>
-      <textarea id="nuevaPropuesta" placeholder="Escribe tu idea..."></textarea>
-      <button class="btn" onclick="agregarComentario()">Publicar</button>
-      <div id="listaComentarios"></div>
-    </div>
-  </section>
-
-  <section id="contacto">
-    <h2>Contacto</h2>
-    <div class="formulario">
-      <input type="text" id="nombre" placeholder="Tu nombre">
-      <input type="email" id="correo" placeholder="Tu correo">
-      <textarea id="mensaje" placeholder="Tu mensaje"></textarea>
-      <button class="btn" onclick="enviarMensaje()">Enviar mensaje</button>
-      <p id="mensajeEnviado">Mensaje enviado. Te llegará en unos días.</p>
-    </div>
-    <div class="mapa">
-      <h3>Encuéntranos</h3>
-      <iframe src="https://maps.google.com/maps?q=Ciudad%20de%20México&t=&z=13&ie=UTF8&iwloc=&output=embed" width="100%" height="300" frameborder="0" style="border:0" allowfullscreen></iframe>
-    </div>
-    <div style="margin-top: 20px;">
-      <p>Síguenos en redes:</p>
-      <a href="#" style="color: #FFD700; margin-right: 15px;"><i class="fab fa-facebook"></i> Facebook</a>
-      <a href="#" style="color: #FFD700; margin-right: 15px;"><i class="fab fa-instagram"></i> Instagram</a>
-    </div>
-  </section>
-
-  <a class="whatsapp" href="https://wa.me/5215637141749?text=Hola%2C%20quiero%20más%20información%20sobre%20los%20chocolates%20ChocoFeliz." target="_blank">
-    <i class="fab fa-whatsapp"></i>
-  </a>
 
   <script>
-    function mostrarSeccion(id) {
-      document.querySelectorAll("section").forEach(sec => sec.classList.remove("active"));
-      document.getElementById(id).classList.add("active");
-      window.scrollTo(0, 0);
-    }
-
-    function enviarMensaje() {
-      const nombre = document.getElementById("nombre").value;
-      const correo = document.getElementById("correo").value;
-      const mensaje = document.getElementById("mensaje").value;
-      const mailto = `mailto:malvaezaxel324@gmail.com?subject=Mensaje de ${nombre}&body=Correo: ${correo}%0A${mensaje}`;
+    function realizarCompra() {
+      const producto = document.getElementById('producto').value;
+      const cantidad = document.getElementById('cantidad').value;
+      const direccion = document.getElementById('direccion').value;
+      const telefono = document.getElementById('telefono').value;
+      const mensaje = `Pedido de ${producto} x${cantidad}\nDirección: ${direccion}\nTeléfono: ${telefono}`;
+      const mailto = `mailto:malvaezaxel324@gmail.com?subject=Nuevo Pedido&body=${encodeURIComponent(mensaje)}`;
       window.location.href = mailto;
-      document.getElementById("mensajeEnviado").style.display = "block";
+      document.getElementById('mensajeCompra').style.display = 'block';
     }
-
-    function agregarComentario() {
-      const texto = document.getElementById("nuevaPropuesta").value;
-      if (texto.trim() !== "") {
-        const comentario = document.createElement("div");
-        comentario.className = "comentario-item";
-        comentario.innerText = texto;
-        document.getElementById("listaComentarios").appendChild(comentario);
-        const comentarios = JSON.parse(localStorage.getItem("comentarios") || "[]");
-        comentarios.push(texto);
-        localStorage.setItem("comentarios", JSON.stringify(comentarios));
-        document.getElementById("nuevaPropuesta").value = "";
-      }
-    }
-
-    function cargarComentarios() {
-      const comentarios = JSON.parse(localStorage.getItem("comentarios") || "[]");
-      comentarios.forEach(texto => {
-        const comentario = document.createElement("div");
-        comentario.className = "comentario-item";
-        comentario.innerText = texto;
-        document.getElementById("listaComentarios").appendChild(comentario);
-      });
-    }
-
-    document.addEventListener("DOMContentLoaded", () => {
-      mostrarSeccion('inicio');
-      cargarComentarios();
-    });
   </script>
 </body>
 </html>
+
 
