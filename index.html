@@ -6,22 +6,14 @@
   <title>ChocoFeliz - Delicias Artesanales</title>
   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
     html, body {
       margin: 0;
       padding: 0;
       font-family: 'Quicksand', sans-serif;
       scroll-behavior: smooth;
-    }
-    section {
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 40px 20px;
+      background: #1a1a1a;
+      color: #fff;
     }
     header {
       background: #fff;
@@ -58,26 +50,59 @@
     nav a:hover {
       color: #FFD700;
     }
-    .hero, .product, .slogan, .contact {
-      background: linear-gradient(to bottom, #B22222, #8B0000, #330000, #000);
-      color: white;
+    section {
+      min-height: 100vh;
+      padding: 60px 20px;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
       text-align: center;
     }
-    .hero h1 {
-      font-size: 3em;
-      margin-bottom: 15px;
+    .active {
+      display: flex !important;
     }
-    .hero p, .product p {
-      font-size: 1.2em;
-      max-width: 700px;
-      margin: 0 auto;
-      line-height: 1.6;
+
+    .hero {
+      background: linear-gradient(to bottom right, #3a0e0e, #1a0000);
+      color: #fffacd;
+      padding: 100px 20px;
+    }
+    .hero h1 {
+      font-size: 3.5em;
+      margin-bottom: 15px;
+      color: #FFD700;
+    }
+    .hero h2 {
+      font-size: 1.5em;
+      font-weight: 400;
+      margin-bottom: 25px;
+    }
+    .btn {
+      display: inline-block;
+      background: #FFD700;
+      color: #330000;
+      text-decoration: none;
+      padding: 15px 30px;
+      border-radius: 10px;
+      font-weight: bold;
+      transition: background 0.3s, transform 0.3s;
+      margin-top: 25px;
+    }
+    .btn:hover {
+      background: #fff;
+      transform: scale(1.05);
+    }
+
+    .product, .slogan, .contact, .hero {
+      color: white;
     }
     .product h2 {
       color: #FFD700;
       font-size: 2em;
       margin-bottom: 20px;
     }
+
     .gallery {
       display: flex;
       flex-wrap: wrap;
@@ -88,28 +113,20 @@
     .gallery img {
       width: 250px;
       border-radius: 12px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+      cursor: pointer;
+      transition: transform 0.3s;
     }
-    .btn {
-      display: inline-block;
-      background: #fff;
-      color: #8B0000;
-      text-decoration: none;
-      padding: 15px 30px;
-      border-radius: 10px;
-      font-weight: bold;
-      transition: background 0.3s, color 0.3s;
-      margin-top: 25px;
+    .gallery img:hover {
+      transform: scale(1.05);
     }
-    .btn:hover {
-      background: #ffd700;
-      color: #330000;
-    }
+
     .slogan {
       font-style: italic;
       font-size: 2em;
       color: #fffacd;
     }
+
     .contact h2 {
       font-size: 2.5em;
       color: #FFD700;
@@ -118,12 +135,31 @@
     .contact p {
       font-size: 1.5em;
     }
+
+    /* Modal para ampliar imágenes */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 999;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.9);
+      justify-content: center;
+      align-items: center;
+    }
+    .modal img {
+      max-width: 90%;
+      max-height: 90%;
+    }
+    .modal:target {
+      display: flex;
+    }
   </style>
 </head>
 <body>
 
   <header>
-    <img src="logo.png" alt="ChocoFeliz Logo" style="max-height: 140px;" />
+    <img src="logo.png" alt="ChocoFeliz Logo" />
     ChocoFeliz
   </header>
 
@@ -134,50 +170,54 @@
     <a onclick="mostrarSeccion('contacto')">Contacto</a>
   </nav>
 
-  <section class="hero" id="inicio">
-    <h1>Bienvenido a ChocoFeliz</h1>
-    <p>Déjate tentar por nuestras creaciones artesanales de chocolate. Sabores únicos, calidad premium y una pizca de felicidad en cada mordida.</p>
-    <a class="btn" onclick="mostrarSeccion('producto')">Descúbrelos ahora</a>
+  <section class="hero active" id="inicio">
+    <h1>ChocoFeliz</h1>
+    <h2>El sabor premium del chocolate artesanal que conquista millones.</h2>
+    <a class="btn" onclick="mostrarSeccion('producto')">Ver Productos</a>
   </section>
 
-  <section class="product" id="producto" style="display: none;">
-    <h2>Nuestros Productos Estrella</h2>
-    <p>Diseñados para sorprenderte. Hechos con amor, cacao del bueno y mucha creatividad.</p>
+  <section class="product" id="producto">
+    <h2>Productos Estrella</h2>
+    <p>Calidad superior, diseño exclusivo y sabor inolvidable.</p>
     <div class="gallery">
-      <div>
-        <img src="chocolatefeliz.png" alt="Chocolate Feliz" />
-        <p><strong>Chocolate Feliz:</strong> Tableta artesanal en forma de sonrisa, rellena de dulce de leche y decorada con chispas de colores. ¡Una explosión de alegría!</p>
-      </div>
-      <div>
-        <img src="explosioncacao.png" alt="Explosión Cacao" />
-        <p><strong>Explosión Cacao:</strong> Esfera de chocolate oscuro rellena de crema de avellana y cereza. Se derrite en tu boca para una experiencia inolvidable.</p>
-      </div>
+      <a href="#img1"><img src="chocolatefeliz.png" alt="Chocolate Feliz" /></a>
+      <a href="#img2"><img src="explosioncacao.png" alt="Explosión Cacao" /></a>
     </div>
     <a class="btn" onclick="mostrarSeccion('tienda')">¡Quiero el mío!</a>
   </section>
 
-  <section class="slogan" id="frase" style="display: none;">
+  <section class="slogan" id="frase">
     “Sabor que sonríe, dulzura que emociona.”
   </section>
 
-  <section class="contact" id="contacto" style="display: none;">
+  <section class="contact" id="contacto">
     <h2>Contacto</h2>
     <p>+52 1 56 3714 1749</p>
   </section>
 
-  <section class="hero" id="tienda" style="display: none;">
+  <section class="hero" id="tienda">
     <h1>Tienda ChocoFeliz</h1>
     <p style="font-size: 1.5em; color: #FFD700;">¡Próximamente disponible en línea!</p>
-    <p style="font-size: 1.1em; color: #eee;">Estamos preparando la mejor experiencia de compra para ti.</p>
     <a class="btn" onclick="mostrarSeccion('inicio')">Volver al inicio</a>
   </section>
 
+  <!-- MODALES DE IMAGEN -->
+  <div id="img1" class="modal" onclick="location.href='#producto'">
+    <img src="chocolatefeliz.png" alt="Chocolate Feliz" />
+  </div>
+  <div id="img2" class="modal" onclick="location.href='#producto'">
+    <img src="explosioncacao.png" alt="Explosión Cacao" />
+  </div>
+
   <script>
     function mostrarSeccion(id) {
-      const secciones = document.querySelectorAll("section");
-      secciones.forEach(seccion => {
-        seccion.style.display = seccion.id === id ? "flex" : "none";
+      document.querySelectorAll("section").forEach(sec => {
+        sec.classList.remove("active");
+        sec.style.display = "none";
       });
+      const sel = document.getElementById(id);
+      sel.style.display = "flex";
+      sel.classList.add("active");
       window.scrollTo(0, 0);
     }
 
