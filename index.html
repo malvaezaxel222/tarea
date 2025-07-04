@@ -7,29 +7,32 @@
 
   <!-- Tipografías -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 
   <style>
-    * { box-sizing: border-box; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     html, body {
-      margin: 0;
-      padding: 0;
       font-family: 'Quicksand', sans-serif;
       scroll-behavior: smooth;
       background: linear-gradient(to right, #8B0000, #660000);
       color: #fff;
     }
-    h1, h2 { font-family: 'Playfair Display', serif; }
+    h1, h2, h3 {
+      font-family: 'Playfair Display', serif;
+      color: #FFD700;
+    }
 
     header {
       background: #fff;
       color: #8B0000;
-      padding: 20px;
+      padding: 30px;
       text-align: center;
-      font-size: 2.5em;
+      font-size: 2.8em;
       font-weight: bold;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
     }
     header img {
-      max-height: 80px;
+      max-height: 90px;
       display: block;
       margin: 0 auto 10px;
     }
@@ -37,21 +40,25 @@
     nav {
       background: #660000;
       text-align: center;
-      padding: 10px 0;
+      padding: 20px 0;
       position: sticky;
       top: 0;
       z-index: 10;
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
     }
     nav a {
       color: #fff;
-      margin: 0 15px;
+      margin: 0 20px;
       text-decoration: none;
       font-weight: bold;
-      font-size: 1.1em;
-      cursor: pointer;
+      font-size: 1.3em;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      transition: color 0.3s ease;
     }
     nav a:hover {
       color: #FFD700;
+      transform: scale(1.1);
     }
 
     section {
@@ -60,7 +67,6 @@
       display: none;
       justify-content: center;
       align-items: center;
-      flex-direction: column;
       text-align: center;
       opacity: 0;
       animation: fadeIn 1s ease forwards;
@@ -76,83 +82,74 @@
     .hero {
       position: relative;
       color: #fffacd;
-    }
-    .hero video {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      z-index: -1;
+      padding: 80px 0;
+      background: #660000;
     }
     .hero h1 {
-      font-size: 3.5em;
+      font-size: 4.5em;
       color: #FFD700;
+      font-weight: bold;
+      text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.4);
+    }
+    .hero h2 {
+      font-size: 2em;
+      margin-top: 15px;
+      color: #fff;
     }
 
     .btn {
       background: #FFD700;
       color: #330000;
       text-decoration: none;
-      padding: 10px 20px;
-      border-radius: 8px;
+      padding: 12px 30px;
+      border-radius: 30px;
       font-weight: bold;
       transition: all 0.3s ease-in-out;
-      margin-top: 15px;
+      margin-top: 20px;
       cursor: pointer;
+      border: 2px solid #8B0000;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     }
     .btn:hover {
       background: #fff;
-      transform: scale(1.05);
+      color: #8B0000;
+      transform: scale(1.1);
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
     }
 
     .gallery {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 20px;
+      gap: 30px;
+      padding-top: 50px;
     }
     .producto-box {
       display: flex;
       flex-direction: column;
       align-items: center;
+      width: 300px;
+      position: relative;
+      overflow: hidden;
+      border-radius: 15px;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+      background-color: #1c1c1c;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
-    .gallery img {
-      width: 250px;
-      border-radius: 12px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+    .producto-box:hover {
+      transform: scale(1.05);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
     }
-
-    /* Nueva clase para el mensaje de "próximamente" */
-    .proximamente {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: #FFD700;
-      color: #330000;
-      padding: 20px;
-      border-radius: 12px;
-      font-size: 1.5em;
-      text-align: center;
-      display: none;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.7);
-      animation: fadeInProximamente 1s ease-out forwards;
+    .producto-box img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .producto-box:hover img {
+      transform: scale(1.1);
     }
 
-    @keyframes fadeInProximamente {
-      from {
-        opacity: 0;
-        transform: translate(-50%, -50%) scale(0.5);
-      }
-      to {
-        opacity: 1;
-        transform: translate(-50%, -50%) scale(1);
-      }
-    }
-
-    /* Estilo del corazón (me gusta) */
     .like-btn {
       background: none;
       border: none;
@@ -170,30 +167,55 @@
       color: #FFD700;
     }
 
+    /* Nueva clase para el mensaje de "próximamente" */
+    .proximamente {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #FFD700;
+      color: #330000;
+      padding: 20px;
+      border-radius: 12px;
+      font-size: 1.5em;
+      text-align: center;
+      display: none;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
+      animation: fadeInProximamente 1s ease-out forwards;
+    }
+
+    @keyframes fadeInProximamente {
+      from {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.5);
+      }
+      to {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+      }
+    }
+
     .formulario {
       margin-top: 30px;
     }
     .formulario input, .formulario textarea {
-      padding: 10px;
+      padding: 15px;
       width: 100%;
-      max-width: 400px;
+      max-width: 450px;
       margin-bottom: 15px;
       border: none;
       border-radius: 8px;
+      font-size: 1.1em;
     }
+
     #mensajeEnviado {
       color: #FFD700;
       font-weight: bold;
       margin-top: 20px;
       display: none;
     }
-    .especificaciones {
-      padding: 40px 20px;
-      background: #1b1b1b;
-      color: #FFD700;
-      display: none;
-      text-align: center;
-    }
+
+    /* Comentarios */
     .comentarios {
       margin-top: 40px;
       background: #1c1c1c;
@@ -201,24 +223,62 @@
       border-radius: 12px;
       width: 90%;
       max-width: 700px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     }
     .comentarios h3 {
       margin-bottom: 20px;
+      font-size: 1.5em;
     }
     .comentarios textarea {
       width: 100%;
       height: 100px;
       margin-bottom: 10px;
-      padding: 10px;
+      padding: 15px;
       border-radius: 8px;
       border: none;
+      font-size: 1.1em;
     }
     .comentario-item {
       background: #333;
-      padding: 10px;
+      padding: 15px;
       border-radius: 8px;
       margin-top: 10px;
       text-align: left;
+    }
+
+    /* Estilos del WhatsApp */
+    .whatsapp-btn {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: #25D366;
+      border-radius: 50%;
+      padding: 20px;
+      font-size: 1.8em;
+      color: #fff;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .whatsapp-btn:hover {
+      background: #128C7E;
+    }
+
+    @media screen and (max-width: 768px) {
+      .producto-box {
+        width: 100%;
+        max-width: 100%;
+      }
+      .hero h1 {
+        font-size: 3em;
+      }
+      .hero h2 {
+        font-size: 1.4em;
+      }
+      .btn {
+        font-size: 1.1em;
+        padding: 15px 25px;
+      }
     }
   </style>
 </head>
@@ -302,6 +362,10 @@
     ¡Este producto estará disponible pronto! Gracias por tu interés.
   </div>
 
+  <div class="whatsapp-btn" onclick="window.location.href='https://wa.me/525551234567'">
+    <i class="fab fa-whatsapp"></i>
+  </div>
+
   <script>
     function mostrarSeccion(id) {
       document.querySelectorAll("section").forEach(seccion => {
@@ -379,7 +443,6 @@
   </script>
 </body>
 </html>
-
 
 
 
