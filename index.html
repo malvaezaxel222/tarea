@@ -124,22 +124,50 @@
       box-shadow: 0 2px 8px rgba(0,0,0,0.5);
     }
 
-    .modal {
-      display: none;
+    /* Nueva clase para el mensaje de "próximamente" */
+    .proximamente {
       position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.9);
-      justify-content: center;
-      align-items: center;
-      z-index: 999;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #FFD700;
+      color: #330000;
+      padding: 20px;
+      border-radius: 12px;
+      font-size: 1.5em;
+      text-align: center;
+      display: none;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.7);
+      animation: fadeInProximamente 1s ease-out forwards;
     }
-    .modal img {
-      max-width: 90%;
-      max-height: 90%;
+
+    @keyframes fadeInProximamente {
+      from {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.5);
+      }
+      to {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+      }
     }
-    .modal:target {
-      display: flex;
+
+    /* Estilo del corazón (me gusta) */
+    .like-btn {
+      background: none;
+      border: none;
+      font-size: 2em;
+      color: #FFD700;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    .like-btn:hover {
+      transform: scale(1.2);
+    }
+    .like-count {
+      font-size: 1.2em;
+      margin-top: 5px;
+      color: #FFD700;
     }
 
     .formulario {
@@ -192,17 +220,6 @@
       margin-top: 10px;
       text-align: left;
     }
-
-    /* Nueva clase para el mensaje de "próximamente" */
-    .proximamente {
-      background: #FFD700;
-      color: #330000;
-      padding: 15px;
-      border-radius: 8px;
-      font-size: 1.2em;
-      display: none;
-      margin-top: 20px;
-    }
   </style>
 </head>
 <body>
@@ -231,11 +248,15 @@
         <img src="chocolatefeliz.png" alt="Chocolate Feliz">
         <button class="btn" onclick="mostrarEspecificacion('especificacionesFeliz')">Ver detalles</button>
         <button class="btn" onclick="mostrarProximamente()">Comprar</button>
+        <button class="like-btn" onclick="incrementarLike('feliz')">&#10084;</button>
+        <div id="like-feliz" class="like-count">0 Me gusta</div>
       </div>
       <div class="producto-box">
         <img src="explosioncacao.png" alt="Explosión Cacao">
         <button class="btn" onclick="mostrarEspecificacion('especificacionesCacao')">Ver detalles</button>
         <button class="btn" onclick="mostrarProximamente()">Comprar</button>
+        <button class="like-btn" onclick="incrementarLike('cacao')">&#10084;</button>
+        <div id="like-cacao" class="like-count">0 Me gusta</div>
       </div>
     </div>
 
@@ -301,6 +322,12 @@
       }, 3000); // Mostrar el mensaje por 3 segundos
     }
 
+    function incrementarLike(producto) {
+      const likeCount = document.getElementById(`like-${producto}`);
+      let count = parseInt(likeCount.innerText.split(" ")[0]);
+      likeCount.innerText = `${++count} Me gusta`;
+    }
+
     function enviarMensaje() {
       const nombre = document.getElementById("nombre").value;
       const correo = document.getElementById("correo").value;
@@ -352,6 +379,7 @@
   </script>
 </body>
 </html>
+
 
 
 
