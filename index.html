@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -193,6 +192,17 @@
       margin-top: 10px;
       text-align: left;
     }
+
+    /* Nueva clase para el mensaje de "próximamente" */
+    .proximamente {
+      background: #FFD700;
+      color: #330000;
+      padding: 15px;
+      border-radius: 8px;
+      font-size: 1.2em;
+      display: none;
+      margin-top: 20px;
+    }
   </style>
 </head>
 <body>
@@ -220,10 +230,12 @@
       <div class="producto-box">
         <img src="chocolatefeliz.png" alt="Chocolate Feliz">
         <button class="btn" onclick="mostrarEspecificacion('especificacionesFeliz')">Ver detalles</button>
+        <button class="btn" onclick="mostrarProximamente()">Comprar</button>
       </div>
       <div class="producto-box">
         <img src="explosioncacao.png" alt="Explosión Cacao">
         <button class="btn" onclick="mostrarEspecificacion('especificacionesCacao')">Ver detalles</button>
+        <button class="btn" onclick="mostrarProximamente()">Comprar</button>
       </div>
     </div>
 
@@ -265,6 +277,10 @@
     </div>
   </section>
 
+  <div class="proximamente" id="mensajeProximamente">
+    ¡Este producto estará disponible pronto! Gracias por tu interés.
+  </div>
+
   <script>
     function mostrarSeccion(id) {
       document.querySelectorAll("section").forEach(seccion => {
@@ -275,6 +291,14 @@
       mostrar.style.display = "flex";
       mostrar.classList.add("active");
       window.scrollTo(0, 0);
+    }
+
+    function mostrarProximamente() {
+      const mensaje = document.getElementById("mensajeProximamente");
+      mensaje.style.display = "block";
+      setTimeout(() => {
+        mensaje.style.display = "none";
+      }, 3000); // Mostrar el mensaje por 3 segundos
     }
 
     function enviarMensaje() {
@@ -328,5 +352,6 @@
   </script>
 </body>
 </html>
+
 
 
