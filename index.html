@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>ChocoFeliz - Cajita Feliz Dulce Sorpresa</title>
+  <title>ChocoFeliz - Delicias Artesanales</title>
   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
   <style>
     * {
@@ -82,7 +82,7 @@
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 15px;
+      gap: 20px;
       margin-top: 20px;
     }
     .gallery img {
@@ -129,28 +129,35 @@
 
   <nav>
     <a onclick="mostrarSeccion('inicio')">Inicio</a>
-    <a onclick="mostrarSeccion('producto')">Producto</a>
+    <a onclick="mostrarSeccion('producto')">Productos</a>
     <a onclick="mostrarSeccion('frase')">Frase</a>
     <a onclick="mostrarSeccion('contacto')">Contacto</a>
   </nav>
 
   <section class="hero" id="inicio">
-    <h1>Cajita Feliz Dulce Sorpresa</h1>
-    <p>¡Vive la experiencia ChocoFeliz! Sumérgete en un mundo de dulzura, color y felicidad. Nuestra Cajita Feliz Dulce Sorpresa está llena de chocolates irresistibles, confites y gomitas que harán sonreír tu día.</p>
-    <a class="btn" onclick="mostrarSeccion('producto')">Descúbrela ahora</a>
+    <h1>Bienvenido a ChocoFeliz</h1>
+    <p>Déjate tentar por nuestras creaciones artesanales de chocolate. Sabores únicos, calidad premium y una pizca de felicidad en cada mordida.</p>
+    <a class="btn" onclick="mostrarSeccion('producto')">Descúbrelos ahora</a>
   </section>
 
   <section class="product" id="producto" style="display: none;">
-    <h2>¡Descubre la Cajita Feliz Dulce Sorpresa!</h2>
-    <p>Una caja llena de colores suaves y vibrantes, bombones, tabletas de chocolate y confites. Perfecta para regalar o disfrutar en tus momentos especiales. ¡Porque la vida sabe mejor con chocolate!</p>
+    <h2>Nuestros Productos Estrella</h2>
+    <p>Diseñados para sorprenderte. Hechos con amor, cacao del bueno y mucha creatividad.</p>
     <div class="gallery">
-      <img src="cajafeliz.png" alt="Cajita Feliz" />
+      <div>
+        <img src="chocolatefeliz.png" alt="Chocolate Feliz" />
+        <p><strong>Chocolate Feliz:</strong> Tableta artesanal en forma de sonrisa, rellena de dulce de leche y decorada con chispas de colores. ¡Una explosión de alegría!</p>
+      </div>
+      <div>
+        <img src="explosioncacao.png" alt="Explosión Cacao" />
+        <p><strong>Explosión Cacao:</strong> Esfera de chocolate oscuro rellena de crema de avellana y cereza. Se derrite en tu boca para una experiencia inolvidable.</p>
+      </div>
     </div>
-    <a class="btn" onclick="mostrarSeccion('tienda')">¡Quiero la mía!</a>
+    <a class="btn" onclick="mostrarSeccion('tienda')">¡Quiero el mío!</a>
   </section>
 
   <section class="slogan" id="frase" style="display: none;">
-    “Felicidad en cada mordida.”
+    “Sabor que sonríe, dulzura que emociona.”
   </section>
 
   <section class="contact" id="contacto" style="display: none;">
